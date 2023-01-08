@@ -2,7 +2,7 @@
 
 ## Demo
 
-https://kanban-b.netlify.app
+https://kanban-brd-app.vercel.app/
 
 ## Technologies
 
