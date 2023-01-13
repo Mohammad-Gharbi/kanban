@@ -5,7 +5,7 @@ import { Board } from "./Layouts/Board"
 
 function App() {
   return (
-    <div className="fixed h-screen w-screen bg-gradient-to-r from-slate-900 to-slate-800">
+    <div className="fixed h-screen w-screen bg-slate-900">
       <Grid
         height="100vh"
         padding={6}
