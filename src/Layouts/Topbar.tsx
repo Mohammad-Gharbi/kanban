@@ -9,7 +9,7 @@ export function Topbar() {
 
   useEffect(() => {
     setBoardName(boards?.find((board) => board.id === currentBoard)?.name)
-  }, [currentBoard])
+  }, [currentBoard, boards])
 
   return (
     <div className="flex h-full w-full flex-row items-center justify-between rounded-xl bg-slate-800 p-6 shadow-md">

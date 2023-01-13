@@ -12,7 +12,6 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react"
-import { useBoard } from "../contexts/BoardsContext"
 import { Options } from "./Options"
 
 interface task {

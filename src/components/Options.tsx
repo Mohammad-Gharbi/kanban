@@ -8,9 +8,10 @@ import {
   PopoverTrigger,
   Text,
 } from "@chakra-ui/react"
-
 import { BsThreeDotsVertical } from "react-icons/bs"
 import { useBoard } from "../contexts/BoardsContext"
+import { EditBoard } from "./EditBoard"
+import { EditTask } from "./EditTask"
 
 interface board {
   name: string
@@ -49,11 +50,11 @@ export function Options({ name, id }: Props) {
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody>
-            <div className="flex flex-col justify-center p-6">
+            <div className="flex flex-col justify-center p-3">
               <Text as="b" mb="4">
                 {name} Options
               </Text>
-              <Button
+              <button
                 onClick={() => {
                   if (name === "Board") {
                     deleteBoard(currentBoard)
@@ -63,11 +64,11 @@ export function Options({ name, id }: Props) {
                     deleteTask(id)
                   }
                 }}
-                w="24"
-                colorScheme="red"
+                className="transtion-all mt-4 h-12 w-24 rounded-lg bg-red-100 text-lg font-semibold text-red-800 shadow-md duration-100 ease-in-out hover:bg-red-600 hover:text-white"
               >
                 Delete
-              </Button>
+              </button>
+              {name === "Board" ? <EditBoard /> : <EditTask id={id} />}
             </div>
           </PopoverBody>
         </PopoverContent>

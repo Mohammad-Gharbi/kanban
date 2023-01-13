@@ -19,9 +19,18 @@ interface BoardContext {
     id: string
   ) => void
   currentBoard: string | undefined
-  setCurrentBoard: (boardName: string) => void
+  setCurrentBoard: (id: string) => void
   deleteBoard: (id: string | undefined) => void
   deleteTask: (id: string | undefined) => void
+  editBoard: (id: string | undefined, newName: string) => void
+  editTask: (
+    currentBoard: string | undefined,
+    id: string | undefined,
+    title?: string | undefined,
+    description?: string | undefined,
+    state?: string | undefined,
+    subtasks?: any[] | undefined
+  ) => void
 }
 
 const BoardContext = createContext({} as BoardContext)
@@ -112,6 +121,54 @@ export function BoardProvider({ children }: BoardProviderProps) {
     })
   }
 
+  function editBoard(id: string | undefined, newName: string) {
+    setBoards((prev) => {
+      return prev.map((board) => {
+        if (board.id === id) {
+          return {
+            ...board,
+            name: newName,
+          }
+        } else {
+          return board
+        }
+      })
+    })
+  }
+
+  function editTask(
+    currentBoard: string | undefined,
+    id: string | undefined,
+    title: string | undefined,
+    description: string | undefined,
+    state: string | undefined,
+    subtasks: any[] | undefined
+  ) {
+    setBoards((prev) => {
+      return prev.map((board) => {
+        if (board.id === currentBoard) {
+          return {
+            ...board,
+            tasks: board.tasks.map((task: any) => {
+              if (task.id === id) {
+                return {
+                  ...task,
+                  title: title !== "" ? title : task.title,
+                  description:
+                    description !== "" ? description : task.description,
+                  state: state !== "" ? state : task.state,
+                  subtasks: subtasks?.length !== 0 ? subtasks : task.subtasks,
+                }
+              } else {
+                return task
+              }
+            }),
+          }
+        }
+      })
+    })
+  }
+
   return (
     <BoardContext.Provider
       value={{
@@ -122,6 +179,8 @@ export function BoardProvider({ children }: BoardProviderProps) {
         setCurrentBoard,
         deleteBoard,
         deleteTask,
+        editBoard,
+        editTask,
       }}
     >
       {children}
